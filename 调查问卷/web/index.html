@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>调查问卷</title>
+</head>
+<body>
+    <div>
+        <a href="/add-survey">新建调查页</a>
+    </div>
+
+    <ol id="survey-list">
+    </ol>
+
+    <script src="/js/ajax.js"></script>
+    <script>
+        apiGet("/api/list-surveys.json")
+            .then(surveyList => {
+
+                let ol = document.querySelector("ol");
+                for (let i = 0; i < surveyList.length; i++) {
+                    let survey = surveyList[i];
+
+                    let li = document.createElement("li");
+                    let a = document.createElement("a");
+                    a.innerText = survey.title;
+                    a.href = "/survey.jsp?sid=" + survey.sid;
+                    li.appendChild(a);
+                    ol.appendChild(li);
+                }
+            });
+    </script>
+</body>
+</html>
